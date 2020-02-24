@@ -1,5 +1,4 @@
 a = 1
-a = 1
 b = true
 b = false
 x = (\x.(\x.x)(\y.y))
