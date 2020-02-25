@@ -4,6 +4,12 @@
 
 %token LAMBDA
 %token DOT
+%token ISEQUAL
+%token NOTEQUAL
+%token GE
+%token LE
+%token GT
+%token LT
 %token EQUAL
 %token VARIABLE
 %token NEWLINE
@@ -72,7 +78,8 @@ application:
 	| function expression
 	| application expression
 	| math
-	| conditional
+	| boolean
+	| control
 	| sequential
 	| LPAREN application RPAREN
 	;
@@ -85,7 +92,16 @@ math:
 	| LPAREN math RPAREN
 	;
 
-conditional:
+boolean:
+	expression ISEQUAL expression
+	| expression NOTEQUAL expression
+	| expression GE expression
+	| expression LE expression
+	| expression GT expression
+	| expression LT expression
+	;
+
+control:
 	IF expression THEN expression
 	| IF expression THEN expression ELSE expression
 	;

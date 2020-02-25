@@ -7,6 +7,12 @@ int yyline = 1;
 
 %%
 [ \r\t]+        ;
+\=\=            { return ISEQUAL; }
+\!\=            { return NOTEQUAL; }
+\>\=            { return GE; }
+\<\=            { return LE; }
+\>              { return GT; }
+\<              { return LT; }
 \=              { return EQUAL; }
 \\              { return LAMBDA; }
 \.              { return DOT; }
