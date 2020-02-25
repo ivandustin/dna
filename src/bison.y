@@ -58,7 +58,7 @@ assignment:
 	;
 
 value:
-	function | number | BOOLEAN | array | VARIABLE
+	VARIABLE | number | BOOLEAN | array | function
 	;
 
 values:
@@ -68,6 +68,7 @@ values:
 function:
 	LPAREN LAMBDA args DOT expression RPAREN
 	| LPAREN LAMBDA args DOT control RPAREN
+	| LPAREN LAMBDA args DOT structure RPAREN
 	;
 
 args:
@@ -80,10 +81,6 @@ variables:
 
 number:
 	INTEGER | FLOAT
-	;
-
-index:
-	INTEGER | VARIABLE | application
 	;
 
 expression:
@@ -147,7 +144,7 @@ loop:
 	;
 
 loopvar:
-	VARIABLE EQUAL index COMMA index
+	VARIABLE EQUAL expression COMMA expression
 	;
 
 loopvars:
@@ -164,6 +161,18 @@ vector:
 
 matrix:
 	matrix vector | vector NEWLINE
+	;
+
+structure:
+	VARIABLE keyvalues
+	;
+
+keyvalue:
+	VARIABLE EQUAL expression
+	;
+
+keyvalues:
+	keyvalues COMMA keyvalue | keyvalue
 	;
 %%
 
