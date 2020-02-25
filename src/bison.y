@@ -63,6 +63,7 @@ value:
 	| number
 	| BOOLEAN
 	| array
+	| STRING
 	| function
 	;
 

@@ -1,6 +1,7 @@
 a = 1
 b = true
 b = false
+c = "hello, world!"
 x = (\x.(\x.x)(\y.y))
 x = [1 2 3]
 y = [1 2 3]
