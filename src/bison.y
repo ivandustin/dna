@@ -58,7 +58,12 @@ assignment:
 	;
 
 value:
-	VARIABLE | number | BOOLEAN | array | function
+	VARIABLE
+	| structurevariable
+	| number
+	| BOOLEAN
+	| array
+	| function
 	;
 
 values:
@@ -165,6 +170,10 @@ matrix:
 
 structure:
 	VARIABLE keyvalues
+	;
+
+structurevariable:
+	VARIABLE DOT VARIABLE
 	;
 
 keyvalue:
