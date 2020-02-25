@@ -12,10 +12,17 @@
 %token LT
 %token AND
 %token OR
+%token NOT
 %token EQUAL
 %token VARIABLE
 %token NEWLINE
-%token OPERATOR
+%token ADD
+%token SUBTRACT
+%token DIVIDE
+%token MULTIPLY
+%token BITXOR
+%token BITAND
+%token BITOR
 %token LPAREN
 %token RPAREN
 %token LBRACKET
@@ -57,8 +64,13 @@ values:
 	;
 
 function:
-	LPAREN LAMBDA variables DOT expression RPAREN
-	| LPAREN LAMBDA DOT expression RPAREN
+	LPAREN LAMBDA args DOT expression RPAREN
+	| LPAREN LAMBDA args DOT sequential RPAREN
+	| LPAREN LAMBDA args DOT control RPAREN
+	;
+
+args:
+	variables |
 	;
 
 variables:
@@ -80,18 +92,22 @@ application:
 	| function expression
 	| application expression
 	| math
+	| bitwise
 	| boolean
-	| control
-	| sequential
 	| LPAREN application RPAREN
 	;
 
 math:
-	math OPERATOR value
-	| value OPERATOR math
-	| math OPERATOR math
-	| value OPERATOR value
-	| LPAREN math RPAREN
+	expression ADD expression
+	| expression SUBTRACT expression
+	| expression DIVIDE expression
+	| expression MULTIPLY expression
+	;
+
+bitwise:
+	expression BITXOR expression
+	| expression BITAND expression
+	| expression BITOR expression
 	;
 
 boolean:
@@ -103,15 +119,18 @@ boolean:
 	| expression LT expression
 	| expression AND expression
 	| expression OR expression
+	| NOT expression
 	;
 
 control:
 	IF expression THEN expression
 	| IF expression THEN expression ELSE expression
+	| IF expression THEN expression ELSE control
 	;
 
 sequential:
-	expression THEN expression
+	application THEN sequential
+	| application THEN application
 	;
 
 array:

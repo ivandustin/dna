@@ -15,12 +15,18 @@ int yyline = 1;
 \<              { return LT; }
 and             { return AND; }
 or              { return OR; }
+not             { return NOT; }
 \=              { return EQUAL; }
 \\              { return LAMBDA; }
 \.              { return DOT; }
 \n              { yyline++; return NEWLINE; }
-[\+\-\/\*]      { return OPERATOR; }
-[\^\&\|]        { return OPERATOR; }
+\+              { return ADD; }
+\-              { return SUBTRACT; }
+\/              { return DIVIDE; }
+\*              { return MULTIPLY; }
+xor             { return BITXOR; }
+\&              { return BITAND; }
+\|              { return BITOR; }
 \(              { return LPAREN; }
 \)              { return RPAREN; }
 \[              { return LBRACKET; }
