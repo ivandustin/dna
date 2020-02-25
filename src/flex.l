@@ -13,6 +13,8 @@ int yyline = 1;
 \<\=            { return LE; }
 \>              { return GT; }
 \<              { return LT; }
+and             { return AND; }
+or              { return OR; }
 \=              { return EQUAL; }
 \\              { return LAMBDA; }
 \.              { return DOT; }

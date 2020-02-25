@@ -10,6 +10,8 @@
 %token LE
 %token GT
 %token LT
+%token AND
+%token OR
 %token EQUAL
 %token VARIABLE
 %token NEWLINE
@@ -99,6 +101,8 @@ boolean:
 	| expression LE expression
 	| expression GT expression
 	| expression LT expression
+	| expression AND expression
+	| expression OR expression
 	;
 
 control:
