@@ -27,7 +27,9 @@ start:
 	;
 
 line:
-	assignment NEWLINE | assignment
+	assignment NEWLINE
+	| NEWLINE
+	| assignment
 	;
 
 lines:
@@ -39,8 +41,7 @@ assignment:
 	;
 
 value:
-	function | number | BOOLEAN | array | VARIABLE |
-	LPAREN value RPAREN
+	function | number | BOOLEAN | array | VARIABLE
 	;
 
 values:
@@ -48,10 +49,8 @@ values:
 	;
 
 function:
-	LPAREN LAMBDA variables DOT value RPAREN 		|
-	LPAREN LAMBDA variables DOT application RPAREN 	|
-	LPAREN LAMBDA DOT value RPAREN 					|
-	LPAREN LAMBDA DOT application RPAREN
+	LPAREN LAMBDA variables DOT expression RPAREN
+	| LPAREN LAMBDA DOT expression RPAREN
 	;
 
 variables:
@@ -63,34 +62,32 @@ number:
 	;
 
 expression:
-	values | applications
+	value
+	| application
+	| LPAREN expression RPAREN
 	;
 
 application:
-	VARIABLE expression 	|
-	function expression 	|
-	math 					|
-	conditional 			|
-	sequential 				|
-	application expression 	|
-	LPAREN application RPAREN
-	;
-
-applications:
-	applications application | application
+	VARIABLE expression
+	| function expression
+	| application expression
+	| math
+	| conditional
+	| sequential
+	| LPAREN application RPAREN
 	;
 
 math:
-	math OPERATOR value |
-	value OPERATOR math |
-	math OPERATOR math |
-	value OPERATOR value |
-	LPAREN math RPAREN
+	math OPERATOR value
+	| value OPERATOR math
+	| math OPERATOR math
+	| value OPERATOR value
+	| LPAREN math RPAREN
 	;
 
 conditional:
-	IF expression THEN expression |
-	IF expression THEN expression ELSE expression
+	IF expression THEN expression
+	| IF expression THEN expression ELSE expression
 	;
 
 sequential:
@@ -118,6 +115,6 @@ int main() {
 }
 
 void yyerror(char * err) {
-	printf("syntax error: %s\n", err);
+	printf("syntax error: %s line: %d\n", err, yyline);
 	exit(1);
 }

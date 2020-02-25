@@ -1,6 +1,8 @@
 %{
 #include "include.hpp"
 #include "bison.hpp"
+
+int yyline = 1;
 %}
 
 %%
@@ -8,7 +10,7 @@
 \=              { return EQUAL; }
 \\              { return LAMBDA; }
 \.              { return DOT; }
-\n+             { return NEWLINE; }
+\n              { yyline++; return NEWLINE; }
 [\+\-\/\*]      { return OPERATOR; }
 [\^\&\|]        { return OPERATOR; }
 \(              { return LPAREN; }
