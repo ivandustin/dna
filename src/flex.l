@@ -38,6 +38,8 @@ if              { return IF; }
 then            { return THEN; }
 else            { return ELSE; }
 true|false      { return BOOLEAN; }
+for             { return FOR; }
+\,              { return COMMA; }
 [a-z]+          { return VARIABLE; }
 .               { return ILLEGAL; }
 %%

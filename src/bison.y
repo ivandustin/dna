@@ -14,7 +14,6 @@
 %token OR
 %token NOT
 %token EQUAL
-%token VARIABLE
 %token NEWLINE
 %token ADD
 %token SUBTRACT
@@ -34,6 +33,9 @@
 %token THEN
 %token ELSE
 %token BOOLEAN
+%token FOR
+%token COMMA
+%token VARIABLE
 %token ILLEGAL
 
 %%
@@ -65,7 +67,6 @@ values:
 
 function:
 	LPAREN LAMBDA args DOT expression RPAREN
-	| LPAREN LAMBDA args DOT sequential RPAREN
 	| LPAREN LAMBDA args DOT control RPAREN
 	;
 
@@ -79,6 +80,10 @@ variables:
 
 number:
 	INTEGER | FLOAT
+	;
+
+index:
+	INTEGER | VARIABLE | application
 	;
 
 expression:
@@ -123,6 +128,10 @@ boolean:
 	;
 
 control:
+	if | sequential | loop
+	;
+
+if:
 	IF expression THEN expression
 	| IF expression THEN expression ELSE expression
 	| IF expression THEN expression ELSE control
@@ -131,6 +140,18 @@ control:
 sequential:
 	application THEN sequential
 	| application THEN application
+	;
+
+loop:
+	expression FOR loopvars
+	;
+
+loopvar:
+	VARIABLE EQUAL index COMMA index
+	;
+
+loopvars:
+	loopvars loopvar | loopvar
 	;
 
 array:
