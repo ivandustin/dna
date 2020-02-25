@@ -45,8 +45,8 @@ start:
 
 line:
 	assignment NEWLINE
-	| NEWLINE
 	| assignment
+	| NEWLINE
 	;
 
 lines:
@@ -59,7 +59,7 @@ assignment:
 
 value:
 	VARIABLE
-	| structurevariable
+	| VARIABLE DOT VARIABLE
 	| number
 	| BOOLEAN
 	| array
@@ -78,11 +78,7 @@ function:
 	;
 
 args:
-	variables |
-	;
-
-variables:
-	variables VARIABLE | VARIABLE
+	args VARIABLE | VARIABLE |
 	;
 
 number:
@@ -171,10 +167,6 @@ matrix:
 
 structure:
 	VARIABLE keyvalues
-	;
-
-structurevariable:
-	VARIABLE DOT VARIABLE
 	;
 
 keyvalue:
